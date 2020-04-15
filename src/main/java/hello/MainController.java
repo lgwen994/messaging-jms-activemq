@@ -7,18 +7,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("message")
-public class ProducingController {
+public class MainController {
 
 	@Autowired
-	private MessageProducer producer;
+	private MessageService messageService;
 
 	@RequestMapping(path = "produce", method = RequestMethod.GET)
 	public String produceMessage() {
-		if (producer.produceMessage()) {
+		if (messageService.produceMessage()) {
 		return "Sending an email message.";
 		} else {
 			return "error";
 		}
 	}
+
+	@RequestMapping(path = "receive", method = RequestMethod.GET)
+	public String receiveMessage() {
+		return messageService.receiveMessage();
+	}
+
+
 
 }
